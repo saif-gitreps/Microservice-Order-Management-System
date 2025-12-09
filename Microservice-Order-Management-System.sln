@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice-Order-Management-System", "Microservice-Order-Management-System\Microservice-Order-Management-System.csproj", "{9DF3629C-CFFD-4763-865C-C64DB0A02241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order-Service", "Order-Service\Order-Service.csproj", "{551677EB-FC1D-4221-BDF8-3C538EDC6737}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FC3BAF6-0DD0-4407-B6FF-D534E4400BED}
+	EndGlobalSection
+EndGlobal
