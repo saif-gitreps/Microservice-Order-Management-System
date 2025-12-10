@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8 d17.14
+VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice-Order-Management-System", "Microservice-Order-Management-System\Microservice-Order-Management-System.csproj", "{9DF3629C-CFFD-4763-865C-C64DB0A02241}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order-Service", "Order-Service\Order-Service.csproj", "{551677EB-FC1D-4221-BDF8-3C538EDC6737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{F71CE61F-EC86-483D-9D2E-3A536990DCDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "InventoryService\InventoryService.csproj", "{6A859D5F-DA29-4D77-BBBF-144EC0C1D01D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentService\PaymentService.csproj", "{302F4D4B-97F2-4D88-92FC-7AC276BD9769}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{0386FB6A-B9F5-4142-B941-2025ECCED8E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{58B07661-C579-4FD2-BF53-9FACFB65A5E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +21,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DF3629C-CFFD-4763-865C-C64DB0A02241}.Release|Any CPU.Build.0 = Release|Any CPU
 		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{551677EB-FC1D-4221-BDF8-3C538EDC6737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F71CE61F-EC86-483D-9D2E-3A536990DCDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71CE61F-EC86-483D-9D2E-3A536990DCDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71CE61F-EC86-483D-9D2E-3A536990DCDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F71CE61F-EC86-483D-9D2E-3A536990DCDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A859D5F-DA29-4D77-BBBF-144EC0C1D01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A859D5F-DA29-4D77-BBBF-144EC0C1D01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A859D5F-DA29-4D77-BBBF-144EC0C1D01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A859D5F-DA29-4D77-BBBF-144EC0C1D01D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302F4D4B-97F2-4D88-92FC-7AC276BD9769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302F4D4B-97F2-4D88-92FC-7AC276BD9769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302F4D4B-97F2-4D88-92FC-7AC276BD9769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302F4D4B-97F2-4D88-92FC-7AC276BD9769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0386FB6A-B9F5-4142-B941-2025ECCED8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0386FB6A-B9F5-4142-B941-2025ECCED8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0386FB6A-B9F5-4142-B941-2025ECCED8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0386FB6A-B9F5-4142-B941-2025ECCED8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B07661-C579-4FD2-BF53-9FACFB65A5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B07661-C579-4FD2-BF53-9FACFB65A5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B07661-C579-4FD2-BF53-9FACFB65A5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B07661-C579-4FD2-BF53-9FACFB65A5E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
