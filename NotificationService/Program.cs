@@ -18,6 +18,7 @@ builder.Services.AddSingleton<IEventBus>(sp => new RabbitMQEventBus(rabbitMqHost
 // Register notification service
 builder.Services.AddScoped<INotificationServices, NotificationServices>();
 
+// Services that listen to events to send notifications
 builder.Services.AddHostedService<PaymentProcessedEventHandler>();
 builder.Services.AddHostedService<PaymentFailedEventHandler>();
 builder.Services.AddHostedService<InventoryReservationFailedEventHandler>();

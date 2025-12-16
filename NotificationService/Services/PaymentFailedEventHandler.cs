@@ -7,7 +7,7 @@ using RabbitMQ.Client.Events;
 
 namespace NotificationService.Services
 {
-    public class PaymentFailedEventHandler
+    public class PaymentFailedEventHandler: IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IConnection _connection;
@@ -76,6 +76,16 @@ namespace NotificationService.Services
             _channel?.Dispose();
             _connection?.Dispose();
             base.Dispose();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

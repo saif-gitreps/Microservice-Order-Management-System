@@ -2,11 +2,11 @@
 
 namespace NotificationService.Services
 {
-    public class InventoryReservationFailedEventHandler
+    public class InventoryReservationFailedEventHandler: IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IConnection _connection;
-        private readonly IModel _channel;
+        private readonly IChannel _channel;
         private readonly string _queueName = "notification_inventory_failed_queue";
         private readonly string _exchangeName = "order_management_exchange";
 
@@ -71,6 +71,16 @@ namespace NotificationService.Services
             _channel?.Dispose();
             _connection?.Dispose();
             base.Dispose();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
