@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using RabbitMQ.Client;
 using StackExchange.Redis;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 
