@@ -1,14 +1,46 @@
+using Microsoft.EntityFrameworkCore;
+using PaymentService.Data;
+using PaymentService.Interfaces;
+using PaymentService.Repositories;
+using PaymentService.Services;
+using Shared.Shared.Events.EventBus;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Host=localhost;Port=5432;Database=paymentservice_db;Username=postgres;Password=postgres";
+
+builder.Services.AddDbContext<PaymentDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+var rabbitMqHost = builder.Configuration["RabbitMQ:HostName"] ?? "localhost";
+builder.Services.AddSingleton<IEventBus>(sp => new RabbitMQEventBus(rabbitMqHost));
+
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+builder.Services.AddScoped<IPaymentService, PaymentServices>();
+
+builder.Services.AddHostedService<InventoryReservedEventHandler>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000", "http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -16,8 +48,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowFrontend");
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 app.Run();

@@ -1,4 +1,6 @@
-﻿using Order_Service.Data;
+﻿
+using Microsoft.EntityFrameworkCore;
+using Order_Service.Data;
 using Order_Service.Interfaces;
 using Order_Service.Model;
 
@@ -19,20 +21,12 @@ namespace Order_Service.Repositories
 
             await _context.SaveChangesAsync();
 
-            // Reload order with items from database
-            // Ensures we have the persisted version with any database-generated values
             return await GetByIdAsync(order.Id) ?? order;
         }
 
-        /// <summary>
-        /// Retrieves an order by its unique identifier.
-        /// Uses Include() to eagerly load order items (avoids N+1 query problem).
-        /// Returns null if order doesn't exist.
-        /// </summary>
         public async Task<Order?> GetByIdAsync(Guid orderId)
         { 
-            return await _context.Orders
-                .Include(o => o.Items) 
+            return await _context.Orders.Include(o => o.Items) 
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
