@@ -5,61 +5,65 @@ using Shared.Shared.Events.EventBus;
 
 namespace Shared.Shared.Events.EventBus
 {
-    public class RabbitMQEventBus: IEventBus, IDisposable
+    public class RabbitMQEventBus : IEventBus, IDisposable
     {
         private readonly IConnection _connection;
         private readonly IChannel _channel;
         private readonly string _exchangeName;
 
-        public RabbitMQEventBus(string hostName, string exchangeName = "order_management_exchange")
+      
+        public static async Task<RabbitMQEventBus> CreateAsync(
+            string hostName,
+            string exchangeName = "order_management_exchange")
         {
-            _exchangeName = exchangeName;
             var factory = new ConnectionFactory { HostName = hostName };
+            var connection = await factory.CreateConnectionAsync();
+            var channel = await connection.CreateChannelAsync();
+            await channel.ExchangeDeclareAsync(
+                exchange: exchangeName,
+                type: ExchangeType.Topic,
+                durable: true);
 
-            // this is a TCP connection to RabbitMQ
-            _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
-
-            _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
-            _channel.ExchangeDeclareAsync(exchange: _exchangeName, type: ExchangeType.Topic, durable: true).GetAwaiter().GetResult();
+            return new RabbitMQEventBus(connection, channel, exchangeName);
         }
 
- 
+      
+        private RabbitMQEventBus(IConnection connection, IChannel channel, string exchangeName)
+        {
+            _connection = connection;
+            _channel = channel;
+            _exchangeName = exchangeName;
+        }
+
         public async Task PublishAsync<T>(T @event) where T : class
         {
-
             var routingKey = GenerateRoutingKey<T>();
-
-            // Serialize event to JSON for transmission
             var message = JsonSerializer.Serialize(@event);
             var body = Encoding.UTF8.GetBytes(message);
 
-            // Create properties for the message
-            var properties = _channel.;
-            properties.Persistent = true; // Message survives broker restart
-            properties.MessageId = Guid.NewGuid().ToString();
-            properties.Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+            var properties = new BasicProperties
+            {
+                Persistent = true,
+                MessageId = Guid.NewGuid().ToString(),
+                Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            };
 
-            _channel.BasicPublishAsync(
+            await _channel.BasicPublishAsync(
                 exchange: _exchangeName,
                 routingKey: routingKey,
+                mandatory: false,
                 basicProperties: properties,
                 body: body);
-
-            await Task.CompletedTask;
         }
 
         private static string GenerateRoutingKey<T>()
         {
             var typeName = typeof(T).Name;
-
-            // Remove "Event" suffix if present
             if (typeName.EndsWith("Event"))
             {
                 typeName = typeName[..^5];
             }
 
-            // Convert PascalCase to lowercase with dots
-            // Example: OrderCreated -> order.created
             var result = string.Empty;
             for (int i = 0; i < typeName.Length; i++)
             {
@@ -69,7 +73,6 @@ namespace Shared.Shared.Events.EventBus
                 }
                 result += char.ToLower(typeName[i]);
             }
-
             return result;
         }
 
@@ -81,4 +84,5 @@ namespace Shared.Shared.Events.EventBus
             _connection?.Dispose();
         }
     }
+
 }

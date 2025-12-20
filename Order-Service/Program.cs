@@ -50,7 +50,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     ConnectionMultiplexer.Connect(redisConnectionString));
 
 var rabbitMqHost = builder.Configuration["RabbitMQ:HostName"] ?? "localhost";
-builder.Services.AddSingleton<IEventBus>(sp => new RabbitMQEventBus(rabbitMqHost));
+
+var eventBus = await RabbitMQEventBus.CreateAsync(rabbitMqHost);
+builder.Services.AddSingleton<IEventBus>(eventBus);
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 

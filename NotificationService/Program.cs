@@ -13,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
 var rabbitMqHost = builder.Configuration["RabbitMQ:HostName"] ?? "localhost";
-builder.Services.AddSingleton<IEventBus>(sp => new RabbitMQEventBus(rabbitMqHost));
+var eventBus = await RabbitMQEventBus.CreateAsync(rabbitMqHost);
+builder.Services.AddSingleton<IEventBus>(eventBus);
 
 // Register notification service
 builder.Services.AddScoped<INotificationServices, NotificationServices>();

@@ -3,6 +3,7 @@ using InventoryService.Interfaces;
 using InventoryService.Repositories;
 using InventoryService.Services;
 using Microsoft.EntityFrameworkCore;
+using Shared.Shared.Events.EventBus;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     ConnectionMultiplexer.Connect(redisConnectionString));
 
 var rabbitMqHost = builder.Configuration["RabbitMQ:HostName"] ?? "localhost";
-builder.Services.AddSingleton<IEventBus>(sp => new RabbitMQEventBus(rabbitMqHost));
+
+var eventBus = await RabbitMQEventBus.CreateAsync(rabbitMqHost);
+builder.Services.AddSingleton<IEventBus>(eventBus);
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
